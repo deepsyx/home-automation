@@ -3,6 +3,11 @@
 const net = require('net');
 const md5 = require('md5');
 const fs = require('fs');
+const rpio = require('rpio');
+
+rpio.init({
+    gpiomem: false
+});
 
 const SECRET = md5('SOMREALLYLONGSECRETCODE');
 const MODULES_DIR = './modules/';

@@ -1,12 +1,12 @@
 const rpio = require('rpio');
 
 const RELAY_PIN = 26;
-const SERVO_PIN = 19;
+const SERVO_PIN = 12;
 
 rpio.open(RELAY_PIN, rpio.OUTPUT, rpio.LOW);
 
 rpio.open(SERVO_PIN, rpio.PWM);
-rpio.pwmSetClockDivider(50);
+rpio.pwmSetClockDivider(64);
 rpio.pwmSetRange(SERVO_PIN, 100);
 
 module.exports = function (key, value) {
