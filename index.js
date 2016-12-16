@@ -6,7 +6,8 @@ const fs = require('fs');
 const rpio = require('rpio');
 
 rpio.init({
-    gpiomem: false
+    gpiomem: false,
+    mapping: 'physical',
 });
 
 const SECRET = md5('SOMREALLYLONGSECRETCODE');

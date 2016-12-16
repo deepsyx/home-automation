@@ -8,11 +8,10 @@ client.connect(5000, 'localhost', () => {
     console.log('Connected');
     client.write('AUTH|' + SECRET);
 
-    setTimeout(() => {
-        client.write('HEAT|1')
-    }, 1000);
+    var stdin = process.openStdin();
+
+    stdin.addListener("data", function(d) {
+        client.write('' +  d.toString().trim());
+    });
 });
 
-client.on('data', x => {
-    console.log(x.toString());
-})
