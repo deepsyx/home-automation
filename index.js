@@ -1,9 +1,9 @@
 'use strict';
 
-const net = require('net');
 const md5 = require('md5');
 const fs = require('fs');
 const rpio = require('rpio');
+const WebSocketServer = require('ws').Server;
 
 rpio.init({
     gpiomem: false,
@@ -20,8 +20,8 @@ const modules = fs
 function onNewConnection (socket) {
     let isAuthenticated = false;
 
-    socket.on('data', (bufferData) => {
-        const data = bufferData.toString('utf8');
+    socket.on('data', (data) => {
+        socket.send(data);
         const [key, value] = data.split('|');
 
         if (!isAuthenticated && value !== SECRET) {
@@ -38,8 +38,8 @@ function onNewConnection (socket) {
     });
 }
 
-net
-    .createServer(onNewConnection)
-    .listen(5000);
 
-console.log("Running at port 5000\n");
+const wss = new WebSocketServer({ port: 8080 });
+wss.on('connection', onNewConnection);
+
+console.log("Running at port 8080\n");
