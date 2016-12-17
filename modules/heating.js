@@ -17,14 +17,14 @@ function calculatePwm (percentage) {
 
 rpio.pwmSetData(SERVO_PIN, calculatePwm(0));
 
-module.exports = function (key, value, socket) {
+module.exports = function (key, value, broadcast) {
 	if (key === 'HEATING') {
 		const status = Number(value);
 		rpio.write(RELAY_PIN, status ? rpio.HIGH : rpio.LOW);
 	}
 
 	if (key === 'HEATING' || key === 'STATUS') {
-		socket.send('HEATING|' + rpio.read(RELAY_PIN));
+		broadcast('HEATING', rpio.read(RELAY_PIN));
 	}
 
 
@@ -35,6 +35,6 @@ module.exports = function (key, value, socket) {
 	}
 
 	if (key === 'HEATING_VALUE' || key === 'STATUS') {
-		socket.send('HEATING_VALUE|' + pwmPercentage);
+		broadcast('HEATING_VALUE', pwmPercentage);
 	}
 }

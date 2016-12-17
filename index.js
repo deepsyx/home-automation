@@ -17,8 +17,18 @@ const modules = fs
     .readdirSync(MODULES_DIR)
     .map(item => require(MODULES_DIR + item));
 
+const connections = {};
+
+function broadcast (key, value) {
+    for (let id in connections) {
+        connections[i].send(key + '|' + value);
+    }
+}
+
 function onNewConnection (socket) {
     let isAuthenticated = false;
+    const id = Math.random();
+    connections[id] = socket;
 
     socket.on('message', (data) => {
         const [key, value] = data.split('|');
@@ -30,9 +40,14 @@ function onNewConnection (socket) {
 
         if (!isAuthenticated && value === SECRET) {
             isAuthenticated = true;
+            return;
         }
 
-        modules.forEach(module => module(key, value, socket));
+        modules.forEach(module => module(key, value, broadcast));
+    });
+
+    ws.on('close', () => {
+        delete connections[id];
     });
 }
 
