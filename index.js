@@ -21,8 +21,6 @@ function onNewConnection (socket) {
     let isAuthenticated = false;
 
     socket.on('message', (data) => {
-        console.log(data);
-        socket.send(data);
         const [key, value] = data.split('|');
 
         if (!isAuthenticated && value !== SECRET) {
@@ -32,10 +30,9 @@ function onNewConnection (socket) {
 
         if (!isAuthenticated && value === SECRET) {
             isAuthenticated = true;
-            return;
         }
 
-        modules.forEach(module => module(key, value));
+        modules.forEach(module => module(key, value, socket));
     });
 }
 
