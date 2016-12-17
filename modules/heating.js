@@ -9,6 +9,14 @@ rpio.open(SERVO_PIN, rpio.PWM);
 rpio.pwmSetClockDivider(256);
 rpio.pwmSetRange(SERVO_PIN, 1500);
 
+let pwmPercentage = 0;
+
+function calculatePwm (percentage) {
+	return percentage / 100 * 145 + 40;
+}
+
+rpio.pwmSetData(SERVO_PIN, calculatePwm(0));
+
 module.exports = function (key, value, socket) {
 	if (key === 'HEATING') {
 		const status = Number(value);
@@ -22,11 +30,11 @@ module.exports = function (key, value, socket) {
 
 	if (key === 'HEATING_VALUE') {
 		const percentage = Number(value);
-		const pwmValue = percentage / 100 * 145 + 40;
-		rpio.pwmSetData(SERVO_PIN, pwmValue);
+		pwmPercentage = percentage;
+		rpio.pwmSetData(SERVO_PIN, calculatePwm(percentage));
 	}
 
 	if (key === 'HEATING_VALUE' || key === 'STATUS') {
-		socket.send('HEATING_VALUE|' + rpio.read(SERVO_PIN));
+		socket.send('HEATING_VALUE|' + pwmPercentage);
 	}
 }
