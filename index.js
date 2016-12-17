@@ -20,12 +20,13 @@ const modules = fs
 function onNewConnection (socket) {
     let isAuthenticated = false;
 
-    socket.on('data', (data) => {
+    socket.on('message', (data) => {
+        console.log(data);
         socket.send(data);
         const [key, value] = data.split('|');
 
         if (!isAuthenticated && value !== SECRET) {
-            socket.end('Auth failed');
+            socket.close();
             return;
         }
 
