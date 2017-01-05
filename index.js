@@ -21,7 +21,7 @@ const connections = {};
 
 function broadcast (key, value) {
     for (let id in connections) {
-        connections[i].send(key + '|' + value);
+        connections[id].send(key + '|' + value);
     }
 }
 
@@ -46,7 +46,7 @@ function onNewConnection (socket) {
         modules.forEach(module => module(key, value, broadcast));
     });
 
-    ws.on('close', () => {
+    socket.on('close', () => {
         delete connections[id];
     });
 }

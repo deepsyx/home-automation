@@ -1,6 +1,6 @@
 const rpio = require('rpio');
 
-const RELAY_PIN = 7;
+const RELAY_PIN = 31;
 const SERVO_PIN = 32;
 
 rpio.open(RELAY_PIN, rpio.OUTPUT, rpio.HIGH);
@@ -15,7 +15,7 @@ function calculatePwm (percentage) {
 	return percentage / 100 * 145 + 40;
 }
 
-rpio.pwmSetData(SERVO_PIN, calculatePwm(0));
+rpio.pwmSetData(SERVO_PIN, calculatePwm(100));
 
 module.exports = function (key, value, broadcast) {
 	if (key === 'HEATING') {
