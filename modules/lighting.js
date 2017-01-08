@@ -31,11 +31,10 @@ module.exports = function (key, value, broadcast) {
 	}
 
 	if (key === 'LED_SOFA') {
-		const value = parseInt(value);
-		rpio.write(SOFA_LED_STRIP_PIN, value === 100 ? rpio.HIGH : rpio.LOW);
+		rpio.write(SOFA_LED_STRIP_PIN, parseInt(value) === 100 ? rpio.HIGH : rpio.LOW);
 	}
 
 	if (key === 'LED_SOFA' || key === 'STATUS') {
-		broadcast('LED_SOFA', rpio.read(SOFA_LED_STRIP_PIN))
+		broadcast('LED_SOFA', rpio.read(SOFA_LED_STRIP_PIN));
 	}
 }
