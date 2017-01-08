@@ -10,8 +10,12 @@ module.exports = function (key, value, broadcast) {
 		// mode, fan, degree
 		// irsend SEND_ONCE MY_REMOTE cool_swingauto_fanauto_30
 		const pieces = value.toLowerCase().split(':');
-		const mode = pieces[0] + '_swingauto_fan' + pieces[1] + '_' + degree;
-		exec(IRSEND_CMD + mode);
+		let command = pieces[0] + '_swingauto_fan' + pieces[1] + '_' + pieces[2];
+		if (value === 'off') {
+			command = 'off';
+		}
+
+		exec(IRSEND_CMD + command);
 		mode = value;
 	}
 

@@ -4,7 +4,7 @@ const FLOOR_LED_STRIP_PINS = [11, 15, 13]; // 17, 22, 27
 const SOFA_LED_STRIP_PIN = 33;
 
 FLOOR_LED_STRIP_PINS.forEach((pinId) => rpio.open(pinId, rpio.OUTPUT, rpio.LOW));
-rpio.open(SOFA_LED_STRIP_PIN, rpio.LOW);
+rpio.open(SOFA_LED_STRIP_PIN, rpio.OUTPUT, rpio.LOW);
 
 module.exports = function (key, value, broadcast) {
 	if (key === 'LED_FLOOR') {
@@ -17,7 +17,7 @@ module.exports = function (key, value, broadcast) {
 		[0, 1, 2].forEach((id) => {
 			rpio.write(
 				FLOOR_LED_STRIP_PINS[id],
-				pieces[id] === 1 ? rpio.HIGH : rpio.LOW
+				pieces[id] === '1' ? rpio.HIGH : rpio.LOW
 			);
 		});
 	}
@@ -31,7 +31,8 @@ module.exports = function (key, value, broadcast) {
 	}
 
 	if (key === 'LED_SOFA') {
-		rpio.write(SOFA_LED_STRIP_PIN, parseInt(value) === 100 ? rpio.HIGH : rpio.LOW);
+		rpio.write(SOFA_LED_STRIP_PIN, Number(value) ? rpio.HIGH : rpio.LOW);
+		console.log(Number(value));
 	}
 
 	if (key === 'LED_SOFA' || key === 'STATUS') {
