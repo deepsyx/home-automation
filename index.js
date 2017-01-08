@@ -4,6 +4,7 @@ const md5 = require('md5');
 const fs = require('fs');
 const rpio = require('rpio');
 const WebSocketServer = require('ws').Server;
+const scheduled = require('./scheduled');
 
 rpio.init({
     gpiomem: false,
@@ -54,5 +55,7 @@ function onNewConnection (socket) {
 
 const wss = new WebSocketServer({ port: 8080 });
 wss.on('connection', onNewConnection);
+
+scheduled(broadcast);
 
 console.log("Running at port 8080\n");
