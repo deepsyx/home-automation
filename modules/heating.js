@@ -15,7 +15,7 @@ function calculatePwm (percentage) {
 	return percentage / 100 * 145 + 40;
 }
 
-rpio.pwmSetData(SERVO_PIN, calculatePwm(100));
+rpio.pwmSetData(SERVO_PIN, calculatePwm(99));
 
 module.exports = function (key, value, broadcast) {
 	if (key === 'HEATING') {
