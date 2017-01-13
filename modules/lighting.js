@@ -1,9 +1,11 @@
 const rpio = require('rpio');
+const exec = require('child_process').execSync;
 
 const FLOOR_LED_STRIP_PINS = [11, 15, 13]; // 17, 22, 27
 const SOFA_LED_STRIP_PIN = 33;
+const FLOOR_LED_GPIO = [17, 22, 27];
 
-FLOOR_LED_STRIP_PINS.forEach((pinId) => rpio.open(pinId, rpio.OUTPUT, rpio.LOW));
+// FLOOR_LED_STRIP_PINS.forEach((pinId) => rpio.open(pinId, rpio.OUTPUT, rpio.LOW));
 rpio.open(SOFA_LED_STRIP_PIN, rpio.OUTPUT, rpio.LOW);
 
 module.exports = function (key, value, broadcast) {
@@ -15,10 +17,12 @@ module.exports = function (key, value, broadcast) {
 		}
 
 		[0, 1, 2].forEach((id) => {
-			rpio.write(
-				FLOOR_LED_STRIP_PINS[id],
-				pieces[id] === '1' ? rpio.HIGH : rpio.LOW
-			);
+//			rpio.write(
+//				FLOOR_LED_STRIP_PINS[id],
+//				pieces[id] === '1' ? rpio.HIGH : rpio.LOW
+//			);
+			console.log('echo "' + FLOOR_LED_GPIO[id] + '=' + parseFloat(pieces[id] / 100) + '" > /dev/pi-blaster');
+			exec('echo "' + FLOOR_LED_GPIO[id] + '=' + parseFloat(pieces[id] / 100) + '" > /dev/pi-blaster');
 		});
 	}
 

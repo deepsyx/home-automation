@@ -1,21 +1,18 @@
 const rpio = require('rpio');
+const exec = require('child_process').execSync;
+
 
 const RELAY_PIN = 31;
-const SERVO_PIN = 32;
+const SERVO_PIN = 12;
 
 rpio.open(RELAY_PIN, rpio.OUTPUT, rpio.HIGH);
-
-rpio.open(SERVO_PIN, rpio.PWM);
-rpio.pwmSetClockDivider(256);
-rpio.pwmSetRange(SERVO_PIN, 1500);
+rpio.open(SERVO_PIN, rpio.OUTPUT, rpio.LOW);
 
 let pwmPercentage = 0;
 
 function calculatePwm (percentage) {
-	return percentage / 100 * 145 + 40;
+	return (0.5 + percentage / 100 * 1.9) / 10;
 }
-
-rpio.pwmSetData(SERVO_PIN, calculatePwm(99));
 
 module.exports = function (key, value, broadcast) {
 	if (key === 'HEATING') {
@@ -31,7 +28,7 @@ module.exports = function (key, value, broadcast) {
 	if (key === 'HEATING_VALUE') {
 		const percentage = Number(value);
 		pwmPercentage = percentage;
-		rpio.pwmSetData(SERVO_PIN, calculatePwm(percentage));
+		exec('echo "' + 18 + '=' + calculatePwm(percentage) + '" > /dev/pi-blaster');
 	}
 
 	if (key === 'HEATING_VALUE' || key === 'STATUS') {
