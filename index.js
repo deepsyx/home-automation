@@ -22,7 +22,10 @@ const connections = {};
 
 function broadcast (key, value) {
     for (let id in connections) {
-        connections[id].send(key + '|' + value);
+        connections[id].send(JSON.stringify({
+        	key,
+        	value
+        }));
     }
 }
 
@@ -32,19 +35,23 @@ function onNewConnection (socket) {
     connections[id] = socket;
 
     socket.on('message', (data) => {
-        const [key, value] = data.split('|');
+    	try {
+	        data = JSON.parse(data);
+	    } catch (e) {
+	    	data = {};
+	    }
 
-        if (!isAuthenticated && value !== SECRET) {
+        if (!isAuthenticated && data.auth !== SECRET) {
             socket.close();
             return;
         }
 
-        if (!isAuthenticated && value === SECRET) {
+        if (!isAuthenticated && data.auth === SECRET) {
             isAuthenticated = true;
             return;
         }
 
-        modules.forEach(module => module(key, value, broadcast));
+        modules.forEach(module => module(data.key, data.value, broadcast));
     });
 
     socket.on('close', () => {
