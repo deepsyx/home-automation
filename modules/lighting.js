@@ -17,25 +17,24 @@ let ledState = {
 
 module.exports = function (key, value, broadcast) {
 	if (key === 'LED_FLOOR') {
-		if (Object.keys(value).length !== 4) {
-			return console.warn('invalid LED_FLOOR command: ' + value);
-		}
+		const pieces = value;
 		ledState = value;
+		console.log(value);
 
 		if (!pieces.isEnabled) {
 			[0, 1, 2].forEach((id) => {
 				exec('echo "' + FLOOR_LED_GPIO[id] + '=0" > /dev/pi-blaster');
 			});
-			return;
+		} else {
+			['r', 'g', 'b'].forEach((color, id) => {
+				exec('echo "' + FLOOR_LED_GPIO[id] + '=' + parseFloat(pieces[color] / 100) + '" > /dev/pi-blaster');
+			});
 		}
-
-		['r', 'g', 'b'].forEach((color, id) => {
-			exec('echo "' + FLOOR_LED_GPIO[id] + '=' + parseFloat(pieces[color] / 100) + '" > /dev/pi-blaster');
-		});
 	}
 
 	if (key === 'LED_FLOOR' || key === 'STATUS') {
 		broadcast('LED_FLOOR', ledState);
+		console.log('broadcast', ledState);
 	}
 
 	if (key === 'LED_SOFA') {
