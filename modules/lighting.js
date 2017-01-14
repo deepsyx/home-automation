@@ -3,35 +3,34 @@ const exec = require('child_process').execSync;
 
 const FLOOR_LED_STRIP_PINS = [11, 15, 13]; // 17, 22, 27
 const SOFA_LED_STRIP_PIN = 33;
-const FLOOR_LED_GPIO = [17, 22, 27];
+const FLOOR_LED_GPIO = [17, 27, 22];
 
 // FLOOR_LED_STRIP_PINS.forEach((pinId) => rpio.open(pinId, rpio.OUTPUT, rpio.LOW));
 rpio.open(SOFA_LED_STRIP_PIN, rpio.OUTPUT, rpio.LOW);
 
+let ledState = '0:0:0:0';
+
 module.exports = function (key, value, broadcast) {
 	if (key === 'LED_FLOOR') {
-		const pieces = value.split(':');
-
-		if (pieces.length !== 3) {
+		let pieces = value.split(':');
+		
+		if (pieces.length !== 4) {
 			return console.warn('invalid LED_FLOOR command: ' + value);
+		}
+		ledState = value;
+
+		if (pieces[3] === '0') {
+			pieces = [0, 0, 0];
 		}
 
 		[0, 1, 2].forEach((id) => {
-//			rpio.write(
-//				FLOOR_LED_STRIP_PINS[id],
-//				pieces[id] === '1' ? rpio.HIGH : rpio.LOW
-//			);
 			console.log('echo "' + FLOOR_LED_GPIO[id] + '=' + parseFloat(pieces[id] / 100) + '" > /dev/pi-blaster');
 			exec('echo "' + FLOOR_LED_GPIO[id] + '=' + parseFloat(pieces[id] / 100) + '" > /dev/pi-blaster');
 		});
 	}
 
 	if (key === 'LED_FLOOR' || key === 'STATUS') {
-		const status = [0, 1, 2].map((id) => {
-			return rpio.read(FLOOR_LED_STRIP_PINS[id]);
-		}).join(':');
-
-		broadcast('LED_FLOOR', status);
+		broadcast('LED_FLOOR', ledState);
 	}
 
 	if (key === 'LED_SOFA') {

@@ -14,6 +14,8 @@ function calculatePwm (percentage) {
 	return (0.5 + percentage / 100 * 1.9) / 10;
 }
 
+exec('echo "' + 18 + '=' + calculatePwm(0) + '" > /dev/pi-blaster');
+
 module.exports = function (key, value, broadcast) {
 	if (key === 'HEATING') {
 		const status = Number(value);
