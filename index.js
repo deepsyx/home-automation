@@ -54,7 +54,9 @@ function onNewConnection (socket) {
         modules.forEach(module => module(data.key, data.value, broadcast));
 
         if (data.key === 'STATUS') {
-            broadcast('STATUS');
+            setTimeout(() => {
+                broadcast('STATUS');
+            }, 250);
         }
     });
 

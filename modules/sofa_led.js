@@ -1,21 +1,19 @@
 const rpio = require('rpio');
 const piBlaster = require('../utils/pi-blaster');
 
-const SOFA_LED_STRIP_PIN = 33;
-
-rpio.open(SOFA_LED_STRIP_PIN, rpio.OUTPUT, rpio.LOW);
+const SOFA_LED_GPIO_PIN = 23;
 
 let ledState = {
 	isEnabled: false,
-	value: 50
+	value: 100
 };
 
 module.exports = function (key, value, broadcast) {
 	if (key === 'LED_SOFA') {
 		if (!value.isEnabled) {
-			piBlaster(13, 0);
+			piBlaster(SOFA_LED_GPIO_PIN, 0);
 		} else {
-			piBlaster(13, value.value / 100);
+			piBlaster(SOFA_LED_GPIO_PIN, value.value / 100);
 		}
 		ledState = value;
 	}

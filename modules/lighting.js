@@ -1,10 +1,7 @@
 const rpio = require('rpio');
 const piBlaster = require('../utils/pi-blaster');
 
-const FLOOR_LED_STRIP_PINS = [11, 15, 13]; // 17, 22, 27
 const FLOOR_LED_GPIO = [17, 27, 22];
-
-// FLOOR_LED_STRIP_PINS.forEach((pinId) => rpio.open(pinId, rpio.OUTPUT, rpio.LOW));
 
 let ledState = {
 	r: 0,
