@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
 import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  ScrollView,
+    StyleSheet,
+    Text,
+    View,
+    Image,
+    ScrollView,
 } from 'react-native';
 
 import Heating from 'app/components/Heating/Heating';
@@ -15,44 +15,44 @@ import FloorLED from 'app/components/FloorLED/FloorLED';
 import styles from 'app/styles';
 
 function getTemperatureString (temperature) {
-  return parseFloat(temperature).toFixed(1);
+    return parseFloat(temperature).toFixed(1);
 }
 
 export default function Home ({
-  items,
-  dispatch,
+    items,
+    dispatch,
 }) {
-  return (
-    <Image
-     source={require('./assets/background.png')}
-     style={styles.background}>
-      <ScrollView>
-        <View
-         style={styles.container}>
+    return (
+        <Image
+         source={require('./assets/background.png')}
+         style={styles.background}>
+            <ScrollView>
+                <View
+                 style={styles.container}>
 
-          <Text
-           style={styles.temperatureText}>
-            {getTemperatureString(items.get('TEMPERATURE'))} °C
-          </Text>
+                    <Text
+                     style={styles.temperatureText}>
+                        {getTemperatureString(items.get('TEMPERATURE'))} °C
+                    </Text>
 
-          <Heating
-           onChange={(newValue) => dispatch('HEATING', newValue)}
-           value={items.get('HEATING')} />
+                    <Heating
+                     onChange={(newValue) => dispatch('HEATING', newValue)}
+                     value={items.get('HEATING')} />
 
-          <AC
-           onChange={(newValue) => dispatch('AC', newValue)}
-           value={items.get('AC')} />
+                    <AC
+                     onChange={(newValue) => dispatch('AC', newValue)}
+                     value={items.get('AC')} />
 
-          <FloorLED
-           onChange={(newValue) => dispatch('LED_FLOOR', newValue)}
-           value={items.get('LED_FLOOR')} />
+                    <FloorLED
+                     onChange={(newValue) => dispatch('LED_FLOOR', newValue)}
+                     value={items.get('LED_FLOOR')} />
 
-          <SofaLED
-           onChange={(newValue) => dispatch('LED_SOFA', newValue)}
-           value={items.get('LED_SOFA')}  />
+                    <SofaLED
+                     onChange={(newValue) => dispatch('LED_SOFA', newValue)}
+                     value={items.get('LED_SOFA')}  />
 
-        </View>
-      </ScrollView>
-    </Image>
-  );
+                </View>
+            </ScrollView>
+        </Image>
+    );
 }

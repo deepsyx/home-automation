@@ -8,22 +8,21 @@ let mode = {
 };
 
 const IRSEND_CMD = 'irsend SEND_ONCE MY_REMOTE ';
-//exec(IRSEND_CMD + mode);
 
 module.exports = function (key, value, broadcast) {
-	if (key === 'AC') {
+    if (key === 'AC') {
 
-		let command = value.mode + '_swingauto_fan' + value.fanspeed + '_' + value.temperature;
+        let command = value.mode + '_swingauto_fan' + value.fanspeed + '_' + value.temperature;
 
-		if (!value.isEnabled) {
-			command = 'off';
-		}
+        if (!value.isEnabled) {
+            command = 'off';
+        }
 
-		exec(IRSEND_CMD + command);
-		mode = value;
-	}
+        exec(IRSEND_CMD + command);
+        mode = value;
+    }
 
-	if (key === 'STATUS' || key === 'AC') {
-		broadcast('AC', mode);
-	}
+    if (key === 'STATUS' || key === 'AC') {
+        broadcast('AC', mode);
+    }
 }

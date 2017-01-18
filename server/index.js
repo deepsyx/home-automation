@@ -23,8 +23,8 @@ const connections = {};
 function broadcast (key, value) {
     for (let id in connections) {
         connections[id].send(JSON.stringify({
-        	key,
-        	value
+            key,
+            value
         }));
     }
 }
@@ -35,11 +35,11 @@ function onNewConnection (socket) {
     connections[id] = socket;
 
     socket.on('message', (data) => {
-    	try {
-	        data = JSON.parse(data);
-	    } catch (e) {
-	    	data = {};
-	    }
+        try {
+            data = JSON.parse(data);
+        } catch (e) {
+            data = {};
+        }
 
         if (!isAuthenticated && data.auth !== SECRET) {
             socket.close();

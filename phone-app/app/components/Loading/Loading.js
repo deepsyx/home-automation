@@ -1,5 +1,5 @@
 import React, {
-	Component,
+    Component,
 } from 'react';
 
 import {
@@ -9,21 +9,22 @@ import {
 } from 'react-native';
 
 import {
-	MKSpinner,
+    MKSpinner,
 } from 'react-native-material-kit';
 
 import styles from './styles';
 
 export default function () {
-	return (
-		<View style={styles.container}>
-			<View>
-		        <MKSpinner
-		         strokeWidth={5}
-		         style={styles.spinner}
-		        />
-		        <Text style={{ fontSize: 20, marginTop: 30 }}>Connecting...</Text>
-		    </View>
-		</View>
-	);
+    return (
+        <View style={styles.container}>
+            <View>
+                <MKSpinner
+                 strokeWidth={5}
+                 style={styles.spinner}
+                />
+
+                <Text style={{ fontSize: 20, marginTop: 30 }}>Connecting...</Text>
+            </View>
+        </View>
+    );
 }
