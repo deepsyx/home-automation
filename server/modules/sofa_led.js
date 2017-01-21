@@ -5,11 +5,12 @@ const SOFA_LED_GPIO_PIN = 23;
 
 let ledState = {
     isEnabled: false,
-    value: 100
+    value: 100,
+    record: 'LedSofa'
 };
 
 module.exports = function (key, value, broadcast) {
-    if (key === 'LED_SOFA') {
+    if (key === 'LedSofa') {
         if (!value.isEnabled) {
             piBlaster(SOFA_LED_GPIO_PIN, 0);
         } else {
@@ -18,7 +19,7 @@ module.exports = function (key, value, broadcast) {
         ledState = value;
     }
 
-    if (key === 'LED_SOFA' || key === 'STATUS') {
-        broadcast('LED_SOFA', ledState);
+    if (key === 'LedSofa' || key === 'STATUS') {
+        broadcast('LedSofa', ledState);
     }
 }

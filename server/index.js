@@ -24,12 +24,19 @@ rpio.init({
 
 const MODULES_DIR = './modules/';
 
+
+/*
+ * Load all modules to array
+ */
 const modules = fs
     .readdirSync(MODULES_DIR)
     .map(item => require(MODULES_DIR + item));
 
 const connections = {};
 
+/*
+ * Broadcast key-value pair to all connections
+ */
 function broadcast (key, value) {
     for (let id in connections) {
         connections[id].send(
@@ -53,16 +60,19 @@ function onNewConnection (socket) {
             data = {};
         }
 
+        // disconnect client if the first message is not valid auth token
         if (!isAuthenticated && data.auth !== homeConfig.authToken) {
             socket.close();
             return;
         }
 
+        // toggle auth flag if there is a valid auth token
         if (!isAuthenticated && data.auth === homeConfig.authToken) {
             isAuthenticated = true;
             return;
         }
 
+        // pass message to all modules
         modules.forEach(module => module(data.key, data.value, broadcast));
 
         if (data.key === 'STATUS') {
@@ -73,12 +83,15 @@ function onNewConnection (socket) {
     });
 
     socket.on('close', () => {
+        // remove connection from the broadcast list
         delete connections[id];
     });
 }
 
 
-const wss = new WebSocketServer({ port: 8080 });
+const wss = new WebSocketServer({
+    port: 8080
+});
 wss.on('connection', onNewConnection);
 
 scheduled(broadcast);

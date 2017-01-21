@@ -4,7 +4,8 @@ let mode = {
     mode: 'heat',
     fanspeed: 'max',
     temperature: '30',
-    isEnabled: false
+    isEnabled: false,
+    record: 'AC',
 };
 
 const IRSEND_CMD = 'irsend SEND_ONCE MY_REMOTE ';

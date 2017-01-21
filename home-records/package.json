@@ -1,7 +1,7 @@
 {
-  "name": "home-automation",
+  "name": "home-records",
   "version": "1.0.0",
-  "description": "",
+  "description": "Immutable data records",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,8 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "home-config": "file:../home-config",
-    "home-records": "file:../home-records",
-    "ws": "1.1.1"
+    "immutable": "^3.8.1"
   }
 }

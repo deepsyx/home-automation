@@ -5,14 +5,7 @@ import Home from 'app/Home';
 import Loading from 'app/components/Loading/Loading';
 
 import config from 'home-config';
-
-class Data extends Immutable.Record({
-    LED_FLOOR: Immutable.Map(),
-    LED_SOFA: Immutable.Map(),
-    TEMPERATURE: 0,
-    AC: Immutable.Map(),
-    HEATING: Immutable.Map(),
-}) {}
+import { Data, Modules } from 'home-records';
 
 export default class App extends React.Component {
     constructor (props) {
@@ -26,13 +19,21 @@ export default class App extends React.Component {
     componentDidMount () {
         this.ws = new WebSocket(config.serverUri);
 
+        console.log(Modules);
         this.ws.onopen = () => {
-            this.ws.send(JSON.stringify({
-                'auth': config.authToken,
-            }));
-            setTimeout(() => this.ws.send(JSON.stringify({
-                'key': 'STATUS'
-            })), 200);
+            this.ws.send(
+                JSON.stringify({
+                    'auth': config.authToken,
+                })
+            );
+
+            setTimeout(() => {
+                this.ws.send(
+                    JSON.stringify({
+                        'key': 'STATUS'
+                    })
+                );
+            }, 200);
         }
 
         this.ws.onmessage = (e) => {
@@ -43,6 +44,10 @@ export default class App extends React.Component {
                     isConnected: true,
                 });
                 return;
+            }
+
+            if (!Modules[data.key]) {
+                throw new Error(`Invalid data key: ${data.key}`);
             }
 
             this.setState({
@@ -62,10 +67,12 @@ export default class App extends React.Component {
     }
 
     dispatch (key, value) {
-        this.ws.send(JSON.stringify({
-            key,
-            value,
-        }));
+        this.ws.send(
+            JSON.stringify({
+                key,
+                value,
+            })
+        );
     }
 
     render () {

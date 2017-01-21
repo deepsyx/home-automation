@@ -7,11 +7,12 @@ let ledState = {
     r: 0,
     g: 0,
     b: 0,
-    isEnabled: false
+    isEnabled: false,
+    record: 'LedFloor'
 };
 
 module.exports = function (key, value, broadcast) {
-    if (key === 'LED_FLOOR') {
+    if (key === 'LedFloor') {
         const pieces = value;
         ledState = value;
 
@@ -26,7 +27,7 @@ module.exports = function (key, value, broadcast) {
         }
     }
 
-    if (key === 'LED_FLOOR' || key === 'STATUS') {
-        broadcast('LED_FLOOR', ledState);
+    if (key === 'LedFloor' || key === 'STATUS') {
+        broadcast('LedFloor', ledState);
     }
 }

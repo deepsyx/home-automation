@@ -10,7 +10,8 @@ rpio.open(SERVO_PIN, rpio.OUTPUT, rpio.LOW);
 
 let currentState = {
     isEnabled: false,
-    value: 0
+    value: 0,
+    record: 'Heating'
 };
 
 function calculatePwm (percentage) {
@@ -20,13 +21,13 @@ function calculatePwm (percentage) {
 piBlaster(SERVO_GPIO, calculatePwm(0));
 
 module.exports = function (key, value, broadcast) {
-    if (key === 'HEATING') {
+    if (key === 'Heating') {
         rpio.write(RELAY_PIN, value.isEnabled ? rpio.HIGH : rpio.LOW);
         piBlaster(SERVO_GPIO, calculatePwm(value.value));
         currentState = value;
     }
 
-    if (key === 'HEATING' || key === 'STATUS') {
-        broadcast('HEATING', currentState);
+    if (key === 'Heating' || key === 'STATUS') {
+        broadcast('Heating', currentState);
     }
 }

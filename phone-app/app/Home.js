@@ -12,7 +12,9 @@ import Heating from 'app/components/Heating/Heating';
 import AC from 'app/components/AC/AC';
 import SofaLED from 'app/components/SofaLED/SofaLED';
 import FloorLED from 'app/components/FloorLED/FloorLED';
+
 import styles from 'app/styles';
+const backgroundImage = require('./assets/background.png');
 
 function getTemperatureString (temperature) {
     return parseFloat(temperature).toFixed(1);
@@ -24,7 +26,7 @@ export default function Home ({
 }) {
     return (
         <Image
-         source={require('./assets/background.png')}
+         source={backgroundImage}
          style={styles.background}>
             <ScrollView>
                 <View
