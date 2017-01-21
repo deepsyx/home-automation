@@ -1,17 +1,27 @@
 'use strict';
 
-const md5 = require('md5');
+/*
+ * Third party
+ */
+
 const fs = require('fs');
 const rpio = require('rpio');
 const WebSocketServer = require('ws').Server;
+
+/*
+ * local files
+ */
+const homeConfig = require('home-config');
 const scheduled = require('./scheduled');
 
+/*
+ * Init rpio driver
+ */
 rpio.init({
     gpiomem: false,
     mapping: 'physical',
 });
 
-const SECRET = md5('SOMREALLYLONGSECRETCODE');
 const MODULES_DIR = './modules/';
 
 const modules = fs
@@ -22,10 +32,12 @@ const connections = {};
 
 function broadcast (key, value) {
     for (let id in connections) {
-        connections[id].send(JSON.stringify({
-            key,
-            value
-        }));
+        connections[id].send(
+            JSON.stringify({
+                key,
+                value
+            })
+        );
     }
 }
 
@@ -41,12 +53,12 @@ function onNewConnection (socket) {
             data = {};
         }
 
-        if (!isAuthenticated && data.auth !== SECRET) {
+        if (!isAuthenticated && data.auth !== homeConfig.authToken) {
             socket.close();
             return;
         }
 
-        if (!isAuthenticated && data.auth === SECRET) {
+        if (!isAuthenticated && data.auth === homeConfig.authToken) {
             isAuthenticated = true;
             return;
         }

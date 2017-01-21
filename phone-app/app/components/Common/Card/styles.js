@@ -13,8 +13,8 @@ export default StyleSheet.create({
         shadowOpacity: 0.8,
         shadowRadius: 2,
         shadowOffset: {
-            height:1,
-            width: 2
+            height: 1,
+            width: 2,
         },
         alignSelf: 'stretch',
         borderRadius: 12,

@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "md5": "*"
+    "home-config": "file:///E:\\home-automation\\home-config"
   }
 }
