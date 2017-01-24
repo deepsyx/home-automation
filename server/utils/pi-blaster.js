@@ -7,7 +7,7 @@ function pwm (pin, value) {
 function turn (pin, state) {
     const value = state ? 1 : 0;
     exec(`gpio -g mode ${pin} out`);
-    return exec(`gpio -g mode ${pin} ${value}`);
+    return exec(`gpio -g write ${pin} ${value}`);
 }
 
 module.exports = {
