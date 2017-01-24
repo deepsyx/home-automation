@@ -6,7 +6,8 @@ function pwm (pin, value) {
 
 function turn (pin, state) {
     const value = state ? 1 : 0;
-    return exec(`echo "${pin}=${parseFloat(value)}" > /dev/pi-blaster`);
+    exec(`gpio -g mode ${pin} out`);
+    return exec(`gpio -g mode ${pin} ${value}`);
 }
 
 module.exports = {
