@@ -1,4 +1,3 @@
-const rpio = require('rpio');
 const piBlaster = require('../utils/pi-blaster');
 const LedFloorRecord = require('home-records').Modules.LedFloor;
 
@@ -13,11 +12,11 @@ module.exports = function (key, value, broadcast) {
 
         if (!pieces.isEnabled) {
             [0, 1, 2].forEach((id) => {
-                piBlaster(FLOOR_LED_GPIO[id], 0);
+                piBlaster.pwm(FLOOR_LED_GPIO[id], 0);
             });
         } else {
             ['r', 'g', 'b'].forEach((color, id) => {
-                piBlaster(FLOOR_LED_GPIO[id], pieces[color] / 100);
+                piBlaster.pwm(FLOOR_LED_GPIO[id], pieces[color] / 100);
             });
         }
     }

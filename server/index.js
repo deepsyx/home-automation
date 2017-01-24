@@ -5,7 +5,6 @@
  */
 
 const fs = require('fs');
-const rpio = require('rpio');
 const WebSocketServer = require('ws').Server;
 
 /*
@@ -14,14 +13,6 @@ const WebSocketServer = require('ws').Server;
 const homeConfig = require('home-config');
 const scheduled = require('./scheduled');
 const Records = require('home-records').Modules;
-
-/*
- * Init rpio driver
- */
-rpio.init({
-    gpiomem: false,
-    mapping: 'physical',
-});
 
 const MODULES_DIR = './modules/';
 
@@ -77,7 +68,9 @@ function onNewConnection (socket) {
         modules.forEach(module =>
             module(
                 data.key,
-                Records[data.key] ? new Records[data.key](data.value) : {},
+                Records[data.key] ?
+                    new Records[data.key](data.value) : // create record from json
+                    {},
                 broadcast
             )
         );

@@ -33,14 +33,6 @@ const Temperature = Record({
     temperature: 0,
 });
 
-const Modules = {
-    LedFloor,
-    LedSofa,
-    AC,
-    Heating,
-    Temperature
-};
-
 const Data = Record({
     Temperature: new Temperature(),
     LedFloor: new LedFloor(),
@@ -50,6 +42,12 @@ const Data = Record({
 });
 
 module.exports = {
-    Modules,
-    Data
+    Modules: {
+        LedFloor,
+        LedSofa,
+        AC,
+        Heating,
+        Temperature,
+    },
+    Data,
 };

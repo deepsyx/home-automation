@@ -7,8 +7,7 @@ const IRSEND_CMD = 'irsend SEND_ONCE MY_REMOTE ';
 
 module.exports = function (key, value, broadcast) {
     if (key === 'AC') {
-
-        let command = value.mode + '_swingauto_fan' + value.fanspeed + '_' + value.temperature;
+        let command = `${value.mode}_swingauto_fan_${value.fanspeed}_${value.temperature}`;
 
         if (!value.isEnabled) {
             command = 'off';
