@@ -13,6 +13,7 @@ const WebSocketServer = require('ws').Server;
  */
 const homeConfig = require('home-config');
 const scheduled = require('./scheduled');
+const Records = require('home-records').Modules;
 
 /*
  * Init rpio driver
@@ -73,7 +74,13 @@ function onNewConnection (socket) {
         }
 
         // pass message to all modules
-        modules.forEach(module => module(data.key, data.value, broadcast));
+        modules.forEach(module =>
+            module(
+                data.key,
+                new Modules[data.key](data.value),
+                broadcast
+            )
+        );
 
         if (data.key === 'STATUS') {
             setTimeout(() => {

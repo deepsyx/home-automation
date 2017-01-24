@@ -21,7 +21,8 @@ export default class App extends React.Component {
         super(props);
         this.state = {
             items: new Data(),
-            status: States.DISCONNECTED
+            status: States.DISCONNECTED,
+            interval: null,
         };
     }
 
@@ -76,6 +77,16 @@ export default class App extends React.Component {
         this.setState({
             status: States.DISCONNECTED,
         });
+
+        // reconnect mechanics
+        this.state.interval = setInterval(() => {
+            if (this.state.status === States.CONNECTING || this.state.status === States.CONNECTED) {
+                clearInterval(this.state.interval);
+                return;
+            }
+
+            this.connect();
+        }, 1000);
     }
 
     componentWillUnmount () {
