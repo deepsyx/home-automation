@@ -1,12 +1,7 @@
 const exec = require('child_process').execSync;
+const ACRecord = require('home-records').Modules.AC;
 
-let mode = {
-    mode: 'heat',
-    fanspeed: 'max',
-    temperature: '30',
-    isEnabled: false,
-    record: 'AC',
-};
+let state = new ACRecord();
 
 const IRSEND_CMD = 'irsend SEND_ONCE MY_REMOTE ';
 
@@ -20,10 +15,10 @@ module.exports = function (key, value, broadcast) {
         }
 
         exec(IRSEND_CMD + command);
-        mode = value;
+        state = value;
     }
 
     if (key === 'STATUS' || key === 'AC') {
-        broadcast('AC', mode);
+        broadcast('AC', state);
     }
 }
