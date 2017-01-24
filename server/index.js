@@ -77,7 +77,7 @@ function onNewConnection (socket) {
         modules.forEach(module =>
             module(
                 data.key,
-                new Modules[data.key](data.value),
+                Records[data.key] ? new Records[data.key](data.value) : {},
                 broadcast
             )
         );
