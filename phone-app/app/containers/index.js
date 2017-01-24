@@ -5,61 +5,77 @@ import Home from 'app/Home';
 import Loading from 'app/components/Loading/Loading';
 
 import config from 'home-config';
-import { Data, Modules } from 'home-records';
+import {
+    Data,
+    Modules
+} from 'home-records';
+
+const States = {
+    CONNECTED: 'connected',
+    CONNECTING: 'connecting',
+    DISCONNECTED: 'disconnected'
+};
 
 export default class App extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
             items: new Data(),
-            isConnected: false,
+            status: States.DISCONNECTED
         };
     }
 
     componentDidMount () {
+        this.connect();
+    }
+
+    connect () {
         this.ws = new WebSocket(config.serverUri);
 
-        console.log(Modules);
-        this.ws.onopen = () => {
-            this.ws.send(
-                JSON.stringify({
-                    'auth': config.authToken,
-                })
-            );
+        this.ws.onopen = () => this.onConnectionOpen();
+        this.ws.onmessage = (event) => this.onConnectionMessage(event);
+        this.ws.onclose = () => this.onConnectionClose();
+        this.ws.sendJSON = (obj) => this.ws.send(JSON.stringify(obj));
 
-            setTimeout(() => {
-                this.ws.send(
-                    JSON.stringify({
-                        'key': 'STATUS'
-                    })
-                );
-            }, 200);
-        }
+        this.state.status = States.CONNECTING;
+    }
 
-        this.ws.onmessage = (e) => {
-            const data = JSON.parse(e.data);
+    onConnectionOpen () {
+        this.ws.sendJSON({
+            'auth': config.authToken,
+        });
 
-            if (data.key === 'STATUS') {
-                this.setState({
-                    isConnected: true,
-                });
-                return;
-            }
+        this.ws.sendJSON({
+            'key': 'STATUS',
+        });
+    }
 
-            if (!Modules[data.key]) {
-                throw new Error(`Invalid data key: ${data.key}`);
-            }
+    onConnectionMessage (event) {
+        const data = JSON.parse(event.data);
 
+        if (data.key === 'STATUS') {
             this.setState({
-                items: this.state.items.set(data.key, Immutable.fromJS(data.value)),
+                status: States.CONNECTED,
             });
+            return;
         }
 
-        this.ws.onclose = () => {
-            this.setState({
-                isConnected: false,
-            });
+        if (!Modules[data.key]) {
+            throw new Error(`Invalid data key: ${data.key}`);
         }
+
+        this.setState({
+            items: this.state.items.set(
+                data.key,
+                new Modules[data.key](data.value),
+            ),
+        });
+    }
+
+    onConnectionClose () {
+        this.setState({
+            status: States.DISCONNECTED,
+        });
     }
 
     componentWillUnmount () {
@@ -67,16 +83,14 @@ export default class App extends React.Component {
     }
 
     dispatch (key, value) {
-        this.ws.send(
-            JSON.stringify({
-                key,
-                value,
-            })
-        );
+        this.ws.sendJSON({
+            key,
+            value,
+        });
     }
 
     render () {
-        if (!this.state.isConnected) {
+        if (this.state.status !== States.CONNECTED) {
             return (
                 <Loading />
             );

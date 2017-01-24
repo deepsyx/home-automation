@@ -47,7 +47,7 @@ class FloorLighting extends React.Component {
             v: 100
         }).toPercentageRgb();
 
-        const newState = this.props.value
+        const newState = this.props.item
             .set('r', parseInt(colors.r))
             .set('g', parseInt(colors.g))
             .set('b', parseInt(colors.b));
@@ -67,12 +67,12 @@ class FloorLighting extends React.Component {
     }
 
     render () {
-        const { value } = this.props;
+        const { item } = this.props;
 
         const color = new tinycolor({
-            r: value.get('r') * 2.5,
-            g: value.get('g') * 2.5,
-            b: value.get('b') * 2.5,
+            r: item.r * 2.5,
+            g: item.g * 2.5,
+            b: item.b * 2.5,
         }).toHsv();
 
         const pos = (color.h / 360) * this.state.elemWidth;
@@ -82,8 +82,8 @@ class FloorLighting extends React.Component {
                 <CardHeader
                  label="Floor light"
                  icon={icon_bulb}
-                 isEnabled={value.get('isEnabled')}
-                 onChange={(state) => this.props.onChange(this.props.value.set('isEnabled', state))} />
+                 isEnabled={item.isEnabled}
+                 onChange={(state) => this.props.onChange(this.props.item.set('isEnabled', state))} />
 
                 <View
                  ref="slider"

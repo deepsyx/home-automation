@@ -17,7 +17,7 @@ import styles from 'app/styles';
 const backgroundImage = require('./assets/background.png');
 
 function getTemperatureString (temperature) {
-    return parseFloat(temperature).toFixed(1);
+    return parseFloat(temperature.temperature).toFixed(1);
 }
 
 export default function Home ({
@@ -34,24 +34,24 @@ export default function Home ({
 
                     <Text
                      style={styles.temperatureText}>
-                        {getTemperatureString(items.get('TEMPERATURE'))} °C
+                        {getTemperatureString(items.Temperature)} °C
                     </Text>
 
                     <Heating
-                     onChange={(newValue) => dispatch('HEATING', newValue)}
-                     value={items.get('HEATING')} />
+                     onChange={(newValue) => dispatch('Heating', newValue)}
+                     item={items.Heating} />
 
                     <AC
                      onChange={(newValue) => dispatch('AC', newValue)}
-                     value={items.get('AC')} />
+                     item={items.AC} />
 
                     <FloorLED
-                     onChange={(newValue) => dispatch('LED_FLOOR', newValue)}
-                     value={items.get('LED_FLOOR')} />
+                     onChange={(newValue) => dispatch('LedFloor', newValue)}
+                     item={items.LedFloor} />
 
                     <SofaLED
-                     onChange={(newValue) => dispatch('LED_SOFA', newValue)}
-                     value={items.get('LED_SOFA')}  />
+                     onChange={(newValue) => dispatch('LedSofa', newValue)}
+                     item={items.LedSofa}  />
 
                 </View>
             </ScrollView>

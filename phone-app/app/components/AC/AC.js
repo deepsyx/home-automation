@@ -21,7 +21,7 @@ import styles from './styles';
 const DEGREE_LABELS = [16, 18, 20, 22, 24, 26, 28, 30];
 
 export default function ({
-    value,
+    item,
     onChange,
 }) {
     return (
@@ -29,8 +29,8 @@ export default function ({
             <CardHeader
              label="AC"
              icon={require('app/assets/icon_ac.png')}
-             isEnabled={value.get('isEnabled')}
-             onChange={(state) => onChange(value.set('isEnabled', state))} />
+             isEnabled={item.isEnabled}
+             onChange={(state) => onChange(item.set('isEnabled', state))} />
 
             <View
              style={styles.container}>
@@ -47,8 +47,8 @@ export default function ({
                          style={{ flex: 20 }}
                          min={16}
                          max={30}
-                         value={parseInt(value.get('temperature'))}
-                         onChange={(newValue) => onChange(value.set('temperature', newValue))} />
+                         value={parseInt(item.temperature)}
+                         onChange={(newValue) => onChange(item.set('temperature', newValue))} />
                     </View>
 
                     <View
@@ -71,8 +71,8 @@ export default function ({
                 <View
                  style={styles.modeSwitchContainer}>
                     <ModeSwitch
-                     value={value.get('mode')}
-                     onChange={(state) => onChange(value.set('mode', state))} />
+                     value={item.mode}
+                     onChange={(state) => onChange(item.set('mode', state))} />
                 </View>
 
             </View>

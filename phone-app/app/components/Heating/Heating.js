@@ -8,7 +8,7 @@ import Card from 'app/components/Common/Card/Card';
 import CardHeader from 'app/components/Common/CardHeader/CardHeader';
 
 export default function ({
-    value,
+    item,
     onChange,
 }) {
     return (
@@ -16,8 +16,8 @@ export default function ({
             <CardHeader
              label="Heating"
              icon={require('app/assets/icon_heat.png')}
-             isEnabled={value.get('isEnabled')}
-             onChange={(newValue) => onChange(value.set('isEnabled', newValue))} />
+             isEnabled={item.isEnabled}
+             onChange={(newValue) => onChange(item.set('isEnabled', newValue))} />
 
             <MKSlider
              thumbRadius={7}
@@ -27,8 +27,8 @@ export default function ({
              style={{ flex: 20 }}
              min={0}
              max={100}
-             value={parseInt(value.get('value'))}
-             onChange={(newValue) => onChange(value.set('value', newValue))} />
+             value={parseInt(item.value)}
+             onChange={(newValue) => onChange(item.set('value', newValue))} />
         </Card>
     );
 };

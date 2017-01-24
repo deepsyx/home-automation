@@ -1,37 +1,37 @@
-import Immutable, { Record } from 'immutable';
+const Record = require('immutable').Record;
 
-class LedFloor extends Record({
+const LedFloor = Record({
     record: 'LedFloor',
     r: 0,
     g: 0,
     b: 0,
     isEnabled: false,
-}) {}
+});
 
-class LedSofa extends Record({
+const LedSofa = Record({
     record: 'LedSofa',
     value: 100,
     isEnabled: false,
-}) {}
+});
 
-class AC extends Record({
+const AC = Record({
     record: 'AC',
     mode: 'heat',
     fanspeed: 'max',
     temperature: '30',
     isEnabled: false,
-}) {}
+});
 
-class Heating extends Record({
+const Heating = Record({
     record: 'Heating',
     value: 0,
     isEnabled: false,
-}) {}
+});
 
-class Temperature extends Record({
+const Temperature = Record({
     record: 'Temperature',
-    value: 0,
-}) {}
+    temperature: 0,
+});
 
 const Modules = {
     LedFloor,
@@ -41,13 +41,13 @@ const Modules = {
     Temperature
 };
 
-class Data extends Immutable.Record({
-    temperature: new Temperature(),
-    ledFloor: new LedFloor(),
-    ledSofa: new LedSofa(),
+const Data = Record({
+    Temperature: new Temperature(),
+    LedFloor: new LedFloor(),
+    LedSofa: new LedSofa(),
     AC: new AC(),
-    heating: new Heating(),
-}) {}
+    Heating: new Heating(),
+});
 
 module.exports = {
     Modules,
