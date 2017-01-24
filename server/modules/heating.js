@@ -17,6 +17,7 @@ module.exports = function (key, value, broadcast) {
     if (key === 'Heating') {
         piBlaster.turn(RELAY_GPIO, value.isEnabled);
         piBlaster.pwm(SERVO_GPIO, calculatePwm(value.value));
+
         state = value;
     }
 

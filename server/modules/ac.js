@@ -1,9 +1,9 @@
 const exec = require('child_process').execSync;
 const ACRecord = require('home-records').Modules.AC;
 
-let state = new ACRecord();
-
 const IRSEND_CMD = 'irsend SEND_ONCE MY_REMOTE ';
+
+let state = new ACRecord();
 
 module.exports = function (key, value, broadcast) {
     if (key === 'AC') {

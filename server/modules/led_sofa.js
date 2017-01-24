@@ -12,6 +12,7 @@ module.exports = function (key, value, broadcast) {
         } else {
             piBlaster.pwm(SOFA_LED_GPIO_PIN, value.value / 100);
         }
+
         state = value;
     }
 
