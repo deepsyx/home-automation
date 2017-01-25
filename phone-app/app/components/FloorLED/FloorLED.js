@@ -69,12 +69,14 @@ class FloorLighting extends React.Component {
     render () {
         const { item } = this.props;
 
+        // colors are in percentage, so 100 * 2.5 = 255
         const color = new tinycolor({
             r: item.r * 2.5,
             g: item.g * 2.5,
             b: item.b * 2.5,
         }).toHsv();
 
+        // hue range is [0, 360]
         const pos = (color.h / 360) * this.state.elemWidth;
 
         return (
@@ -101,6 +103,7 @@ class FloorLighting extends React.Component {
                         styles.sliderPoint,
                         { left: 7 + pos }
                      ]} />
+
                 </View>
             </Card>
         );

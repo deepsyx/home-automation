@@ -1,7 +1,8 @@
 const Record = require('immutable').Record;
 
+// @todo: separate records to different files
+
 const LedFloor = Record({
-    record: 'LedFloor',
     r: 0,
     g: 0,
     b: 0,
@@ -9,13 +10,11 @@ const LedFloor = Record({
 });
 
 const LedSofa = Record({
-    record: 'LedSofa',
     value: 100,
     isEnabled: false,
 });
 
 const AC = Record({
-    record: 'AC',
     mode: 'heat',
     fanspeed: 'max',
     temperature: '30',
@@ -23,13 +22,11 @@ const AC = Record({
 });
 
 const Heating = Record({
-    record: 'Heating',
     value: 0,
     isEnabled: false,
 });
 
 const Temperature = Record({
-    record: 'Temperature',
     temperature: 0,
 });
 

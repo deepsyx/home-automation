@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Viktor Kirilov (deepsybg@gmail.com)",
+  "license": "MIT",
   "dependencies": {
     "immutable": "^3.8.1"
   }

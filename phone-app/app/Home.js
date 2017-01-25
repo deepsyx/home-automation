@@ -38,19 +38,19 @@ export default function Home ({
                     </Text>
 
                     <Heating
-                     onChange={(newValue) => dispatch('Heating', newValue)}
+                     onChange={newValue => dispatch('Heating', newValue)}
                      item={items.Heating} />
 
                     <AC
-                     onChange={(newValue) => dispatch('AC', newValue)}
+                     onChange={newValue => dispatch('AC', newValue)}
                      item={items.AC} />
 
                     <FloorLED
-                     onChange={(newValue) => dispatch('LedFloor', newValue)}
+                     onChange={newValue => dispatch('LedFloor', newValue)}
                      item={items.LedFloor} />
 
                     <SofaLED
-                     onChange={(newValue) => dispatch('LedSofa', newValue)}
+                     onChange={newValue => dispatch('LedSofa', newValue)}
                      item={items.LedSofa}  />
 
                 </View>
