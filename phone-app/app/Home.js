@@ -1,6 +1,4 @@
-import React, {
-    Component,
-} from 'react';
+import React from 'react';
 import pureRender from 'pure-render-decorator';
 
 import {
