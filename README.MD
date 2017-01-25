@@ -12,6 +12,10 @@ The Hardware
 =======
 `Raspberry Pi 3` is the controlling unit. High-power devices, such as LED strips, are powered via external [`12V 5A power supply`](http://img.dxcdn.com/productimages/sku_152373_2.jpg) (shared ground with the PI). The AC is controlled via 950nm infrared LED. The heating system is wired via [relay](http://img.dxcdn.com/productimages/sku_121354_2.jpg) (on and off) and [servo](https://cdn.instructables.com/FCM/8DKT/IBXMML6A/FCM8DKTIBXMML6A.MEDIUM.jpg) for the thermostat as I was avoid disassembling. Both [white LED strip](http://www.saving-star.com/wp-content/uploads/2015/08/Flexible-Top-LED-Strips-FL-F5060W15F12-12-.jpg) and [the RGB strip](http://www.ledssuperbright.com/images/ledstrip5ft.jpg) are connected via `IRLZ34N` logical transistors to the PI. There is also [IR receiver](https://i.stack.imgur.com/rojKP.jpg), just in case I want to record anything else. Temperature is measured via DS18B20 temperature sensor.
 
+The wiring looks like:
+
+![Schematic](https://raw.githubusercontent.com/deepsyx/home-automation/master/Schematic.png)
+
 New Ideas
 =======
 I'm open for all kind of ideas about different modules. If you have some ideas in mind, I'll be thankful if you add it in the issue tracker and label it as `Idea`.
