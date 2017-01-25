@@ -1,5 +1,7 @@
 # Home Automation with RPi and Javascript
 
+![Intro](https://raw.githubusercontent.com/deepsyx/home-automation/master/Intro.png)
+
 Introduction
 =======
 Since a kid I've been passionate about electronic and different kind of mechanisms. Previously I've done different small projects with arduino, like handbrake for my gaming steering wheel, custom LED tachometer for my car (see my github repo), voice controlled LEDs and so on. Recently I bought Raspberry PI 3 and around all the IoT hype, I decided to start automating my home.
