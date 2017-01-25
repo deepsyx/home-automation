@@ -1,4 +1,5 @@
 import React from 'react';
+import pureRender from 'pure-render-decorator';
 
 import {
     View,
@@ -9,7 +10,7 @@ import {
 
 import styles from './styles';
 
-export default function ({
+function ModeSwitch ({
     value,
     onChange,
 }) {
@@ -36,4 +37,6 @@ export default function ({
             </View>
         </TouchableOpacity>
     );
-}
+};
+
+export default pureRender(ModeSwitch);

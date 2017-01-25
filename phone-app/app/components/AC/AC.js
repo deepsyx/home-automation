@@ -1,5 +1,5 @@
 import React from 'react';
-import Immutable from 'immutable';
+import pureRender from 'pure-render-decorator';
 
 import {
     Text,
@@ -20,7 +20,7 @@ import styles from './styles';
 
 const DEGREE_LABELS = [16, 18, 20, 22, 24, 26, 28, 30];
 
-export default function ({
+function AC ({
     item,
     onChange,
 }) {
@@ -79,3 +79,5 @@ export default function ({
         </Card>
     );
 };
+
+export default pureRender(AC);

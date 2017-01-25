@@ -1,9 +1,11 @@
 import React from 'react';
+import pureRender from 'pure-render-decorator';
+
 import {
     MKSlider,
 } from 'react-native-material-kit';
 
-export default function Slider(props) {
+function Slider (props) {
     return (
         <MKSlider
          thumbRadius={7}
@@ -15,3 +17,5 @@ export default function Slider(props) {
          {...props} />
     );
 };
+
+export default pureRender(Slider);

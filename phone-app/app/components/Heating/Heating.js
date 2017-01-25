@@ -1,10 +1,11 @@
 import React from 'react';
+import pureRender from 'pure-render-decorator';
 
 import Slider from 'app/components/Common/Slider/Slider';
 import Card from 'app/components/Common/Card/Card';
 import CardHeader from 'app/components/Common/CardHeader/CardHeader';
 
-export default function ({
+function Heating ({
     item,
     onChange,
 }) {
@@ -22,3 +23,5 @@ export default function ({
         </Card>
     );
 };
+
+export default pureRender(Heating);

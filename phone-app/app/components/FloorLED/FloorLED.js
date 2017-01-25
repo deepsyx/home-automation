@@ -1,5 +1,6 @@
 import React from 'react';
 import tinycolor from 'tinycolor2';
+import pureRender from 'pure-render-decorator';
 
 import {
     StyleSheet,
@@ -110,4 +111,4 @@ class FloorLighting extends React.Component {
     }
 }
 
-export default FloorLighting;
+export default pureRender(FloorLighting);

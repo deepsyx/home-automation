@@ -9,6 +9,7 @@
     "home-config": "file:../home-config",
     "home-records": "file:../home-records",
     "immutable": "^3.8.1",
+    "pure-render-decorator": "^1.2.1",
     "react": "15.4.1",
     "react-native": "0.39.2",
     "react-native-material-kit": "git://github.com/youennPennarun/react-native-material-kit.git#cc9ac25",

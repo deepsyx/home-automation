@@ -1,4 +1,5 @@
 import React from 'react';
+import pureRender from 'pure-render-decorator';
 
 import {
   StyleSheet,
@@ -7,7 +8,7 @@ import {
 
 import styles from './styles';
 
-export default function ({
+function Card ({
     children,
 }) {
     return (
@@ -16,3 +17,5 @@ export default function ({
         </View>
     );
 };
+
+export default pureRender(Card);

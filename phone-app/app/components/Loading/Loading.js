@@ -14,7 +14,7 @@ import {
 
 import styles from './styles';
 
-export default function () {
+export default function Loading () {
     return (
         <View style={styles.container}>
             <View>

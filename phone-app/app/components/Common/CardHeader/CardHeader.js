@@ -1,4 +1,5 @@
 import React from 'react';
+import pureRender from 'pure-render-decorator';
 
 import {
     Image,
@@ -17,7 +18,7 @@ import {
 
 import styles from './styles';
 
-export default function ({
+function CardHeader ({
     isEnabled,
     label,
     icon,
@@ -58,3 +59,5 @@ export default function ({
         </View>
     );
 }
+
+export default pureRender(CardHeader);
