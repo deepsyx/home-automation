@@ -2,8 +2,12 @@
 
 ![Intro](https://raw.githubusercontent.com/deepsyx/home-automation/master/Intro.png)
 
-VIDEO COMMING SOON
+Link to video
 =======
+
+https://youtu.be/wh0OoLUTeM8
+
+[![Alt text](http://i.imgur.com/7ZGu5tX.png)](https://youtu.be/wh0OoLUTeM8)
 
 Introduction
 =======
